@@ -8,9 +8,9 @@ public class Substitutor {
 	/**
 	 * Default prefix for substitution target.
 	 */
-	private static final String DEFAULT_PREFIX = "\\$\\{";
+	private static final String DEFAULT_PREFIX_RE = "\\$\\{";
 
-	private static final String DEFAULT_SUFFIX = "}";
+	private static final String DEFAULT_SUFFIX_RE = "}";
 
 	private static final String WILDCARD = ".*";
 
@@ -23,8 +23,8 @@ public class Substitutor {
 	private Map<String, String> substitutions;
 
 	public Substitutor() {
-		prefix = DEFAULT_PREFIX;
-		suffix = DEFAULT_SUFFIX;
+		prefix = DEFAULT_PREFIX_RE;
+		suffix = DEFAULT_SUFFIX_RE;
 	}
 
 	public void setSubstitutions(Map<String, String> substitutions) {
