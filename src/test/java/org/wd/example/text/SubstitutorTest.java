@@ -112,12 +112,5 @@ public class SubstitutorTest {
 		assertThat(replacedString, equalTo(resultString));
 	}
 	
-	@Test
-	public void failedTest() throws SubstitutorException {
-		sourceString = "some string";
-		resultString = "some other failed string";
-		substitutions = new HashMap<String, String>();
-		runTest();
-	}
 }
 
