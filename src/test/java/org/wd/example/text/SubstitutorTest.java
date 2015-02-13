@@ -115,7 +115,7 @@ public class SubstitutorTest {
 	@Test
 	public void failedTest() throws SubstitutorException {
 		sourceString = "some string";
-		resultString = "some other string";
+		resultString = "some other failed string";
 		substitutions = new HashMap<String, String>();
 		runTest();
 	}
