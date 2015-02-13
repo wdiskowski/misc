@@ -14,7 +14,7 @@ public class Substitutor {
 
 	private static final String WILDCARD = ".*";
 
-	private static final int MAX_DEEP = 5;
+	private static final int MAX_DEEP = 4;
 
 	private final String prefix;
 
