@@ -10,21 +10,21 @@ import java.time.temporal.ChronoUnit;
  * @author wd_user
  *
  */
-public final class DateUtils {
+public class DateUtils {
 
-	private DateUtils() {
+	public DateUtils() {
 	}
 
-	public static boolean isAfter(Instant firstInstant, Instant secondInstant) {
+	public boolean isAfter(Instant firstInstant, Instant secondInstant) {
 		return firstInstant.isAfter(secondInstant);
 	}
 
-	public static Object getDiference(Instant firstInstant,
+	public Object getDiference(Instant firstInstant,
 			Instant secondInstant, ChronoUnit chronoUnit) {
 		return secondInstant.until(firstInstant, chronoUnit);
 	}
 
-	public static String format(LocalDate date, String pattern) {
+	public String format(LocalDate date, String pattern) {
 		return date.format(DateTimeFormatter.ofPattern(pattern));
 	}
 

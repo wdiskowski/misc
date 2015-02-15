@@ -5,13 +5,13 @@ import static org.hamcrest.Matchers.equalTo;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
 public class DateUtilsTest {
+
+	private DateUtils dateUtils = new DateUtils();
 
 	private static final String GERMAN_DATE_FORMAT = "dd.MM.yyyy";
 	private static final Instant FIRST_INSTANT = Instant.now();
@@ -20,21 +20,21 @@ public class DateUtilsTest {
 	@Test
 	public void isAfterPositiveTest() {
 		Instant secondInstant = FIRST_INSTANT.plusSeconds(SOME_DURATION);
-		assertThat(DateUtils.isAfter(secondInstant, FIRST_INSTANT),
+		assertThat(dateUtils.isAfter(secondInstant, FIRST_INSTANT),
 				equalTo(true));
 	}
 
 	@Test
 	public void isAfterNegativeTest() {
 		Instant secondInstant = FIRST_INSTANT.plusSeconds(-SOME_DURATION);
-		assertThat(DateUtils.isAfter(secondInstant, FIRST_INSTANT),
+		assertThat(dateUtils.isAfter(secondInstant, FIRST_INSTANT),
 				equalTo(false));
 	}
 
 	@Test
 	public void getDiferenceSecondsTest() {
 		Instant secondInstant = FIRST_INSTANT.plusSeconds(SOME_DURATION);
-		assertThat(DateUtils.getDiference(secondInstant, FIRST_INSTANT,
+		assertThat(dateUtils.getDiference(secondInstant, FIRST_INSTANT,
 				ChronoUnit.SECONDS), equalTo(SOME_DURATION));
 	}
 
@@ -44,7 +44,7 @@ public class DateUtilsTest {
 		String sollFormatedDate = String.format("%02d.%02d.%04d",
 				date.getDayOfMonth(), date.getMonth().getValue(),
 				date.getYear());
-		assertThat(DateUtils.format(date, GERMAN_DATE_FORMAT),
+		assertThat(dateUtils.format(date, GERMAN_DATE_FORMAT),
 				equalTo(sollFormatedDate));
 	}
 
