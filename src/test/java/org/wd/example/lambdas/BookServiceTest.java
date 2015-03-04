@@ -9,10 +9,13 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.hamcrest.Matchers.not;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.junit.Test;
 import org.wd.example.lambdas.Book.Topic;
 
@@ -106,5 +109,63 @@ public class BookServiceTest {
 		Map<Book.Topic, List<Book>> mapByTopic = bookService.getAsMapByTopic();
 		assertThat(mapByTopic.get(BookRepository.NAILS.getTopic()),
 				hasItem(BookRepository.NAILS));
+	}
+
+	@Test
+	public void getMaxAuthorsCountTest() {
+		List<Book> booksAll = bookService.getSorted();
+		Collections.sort(booksAll, new Comparator<Book>() {
+			@Override
+			public int compare(Book o1, Book o2) {
+				return new CompareToBuilder().append(o2.getAuthors().size(),
+						o1.getAuthors().size()).toComparison();
+			}
+		});
+		assertThat(bookService.getMaxAuthorsCount(), equalTo(booksAll.get(0)
+				.getAuthors().size()));
+	}
+
+	@Test
+	public void getMaxPagesCountTest() {
+		int max = 0;
+		for (Book book : bookService.getSorted()) {
+			int pageCountSum = 0;
+			for (int pageCount : book.getPageCounts()) {
+				pageCountSum += pageCount;
+			}
+			max = Math.max(max, pageCountSum);
+		}
+		assertThat(bookService.getMaxPagesCount(), equalTo(max));
+	}
+
+	@Test
+	public void getMinPagesCountTest() {
+		int min = 0;
+		for (Book book : bookService.getSorted()) {
+			int pageCountSum = 0;
+			for (int pageCount : book.getPageCounts()) {
+				pageCountSum += pageCount;
+			}
+
+			if (min == 0) {
+				min = pageCountSum;
+			} else {
+				min = Math.min(min, pageCountSum);
+			}
+		}
+		assertThat(bookService.getMinPagesCount(), equalTo(min));
+	}
+
+	@Test
+	public void getAveragePagesCountTest() {
+		List<Book> booksAll = bookService.getSorted();
+		double sum = 0;
+		for (Book book : booksAll) {
+			for (int pageCount : book.getPageCounts()) {
+				sum += pageCount;
+			}
+		}
+		assertThat(bookService.getAveragePagesCount(),
+				equalTo(sum / booksAll.size()));
 	}
 }
