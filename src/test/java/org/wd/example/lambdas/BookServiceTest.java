@@ -90,8 +90,8 @@ public class BookServiceTest {
 		int skiped = new Random().nextInt(booksAll.size());
 		List<Book> booksRest = bookService.getSortedRest(skiped);
 		assertThat(booksRest, hasSize(booksAll.size() - skiped));
-		for (int i = 0; i < skiped; i++) {
-			assertThat(booksRest.get(i), equalTo(booksAll.get(skiped + i)));
+		for (int i = skiped; i < booksAll.size(); i++) {
+			assertThat(booksRest.get(i - skiped), equalTo(booksAll.get(i)));
 		}
 	}
 
